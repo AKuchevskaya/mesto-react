@@ -1,0 +1,5 @@
+.popup__figure {
+    display: grid;
+    row-gap: 10px;
+    margin: 0;
+}

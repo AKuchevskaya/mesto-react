@@ -1,0 +1,28 @@
+.profile__button-redaction {
+    background-image: url(../../../images/button_redaction.svg);
+    border: 1px solid #FFFFFF;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    cursor: pointer;
+    padding: 10px;
+    margin: 17px 22px;
+    align-self: flex-start;
+    transition: .3s;
+}
+
+.profile__button-redaction:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 920px) {
+    .profile__button-redaction {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        padding: 7px;
+        align-self: center;
+    }
+}

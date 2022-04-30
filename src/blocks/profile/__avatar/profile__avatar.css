@@ -1,0 +1,20 @@
+.profile__avatar {
+    width: 120px;
+    height: 120px;
+    box-sizing: border-box;
+    margin: 36px 33px 51px 0;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: opasity .6s;
+}
+.profile__avatar:hover .profile__button-avatar {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 650px) {
+    .profile__avatar {
+        margin: 42px 0 26px;
+    }
+}

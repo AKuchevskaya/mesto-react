@@ -1,0 +1,11 @@
+.profile__contact {
+    max-width: 500px;
+    margin: 56px 0 0;
+}
+
+@media screen and (max-width: 920px) {
+    .profile__contact {
+        max-width: 273px;
+        margin: 0;
+    }
+}

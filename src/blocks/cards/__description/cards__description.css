@@ -1,0 +1,8 @@
+.cards__description {
+    background-color: #FFFFFF;
+    padding: 22px 22px 0 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}

@@ -1,0 +1,14 @@
+.page__container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 19px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+}
+
+@media screen and (max-width: 920px) {
+    .page__container {
+        max-width: 320px;
+        padding: 0;
+    }
+}
