@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupWithForm(){
+function ImagePopup(){
     return(
         <div className="popup popup_card-review">
             <div className="popup__box">
@@ -13,4 +13,4 @@ function PopupWithForm(){
         </div>
     )
 }
-export default PopupWithForm;
+export default ImagePopup;

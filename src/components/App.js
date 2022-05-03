@@ -3,6 +3,7 @@ import '../../src/index.css';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 
 
@@ -11,6 +12,7 @@ function App() {
 const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false)
 const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false)
 const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
+
 function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true)
 }
@@ -19,6 +21,11 @@ function handleEditProfileClick() {
 }
 function handleAddPlaceClick() {
     setAddPlacePopupOpen(true)
+}
+function closeAllPopup() {
+    setEditAvatarPopupOpen(false)
+    setEditProfilePopupOpen(false)
+    setAddPlacePopupOpen(false)
 }
   return (
     <div className="page__container">
@@ -31,6 +38,7 @@ function handleAddPlaceClick() {
         <PopupWithForm
         name="profile-avatar"
         isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopup}
         title="Обновить аватар"
         id="form-profile"
         formName="profile-avatar"
@@ -43,6 +51,7 @@ function handleAddPlaceClick() {
         <PopupWithForm
         name="profile-redaction"
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopup}
         title="Редактировать профиль"
         id="form-profile"
         formName="form-redaction"
@@ -57,16 +66,18 @@ function handleAddPlaceClick() {
         <PopupWithForm
         name="profile-add"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopup}
         title="Новое место"
         id="form-profile"
         formName="form-add"
-        buttonText="Сохранить"
+        buttonText="Создать"
         >
             <input type="text" name="text" placeholder="Название" className="popup__input popup__input_type_title" id="title-input" required minLength="2" maxLength="30" />
             <span className="title-input-error popup__error"></span>
             <input type="url" name="link" placeholder="Ссылка на картинку" className="popup__input popup__input_type_link" id="link-input" required />
             <span className="link-input-error popup__error"></span>
         </PopupWithForm>
+        <ImagePopup />
     </div>        
     // <div className="App">
     //   <header className="App-header">
