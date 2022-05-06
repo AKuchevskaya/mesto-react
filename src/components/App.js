@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../../src/index.css';
 import Header from './Header';
 import Main from './Main';
+import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import Footer from './Footer';
 
 
 
@@ -12,6 +12,7 @@ function App() {
 const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false)
 const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false)
 const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
+const [selectedCard, setSelectedCard] = useState(false)
 
 function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true)
@@ -22,25 +23,34 @@ function handleEditProfileClick() {
 function handleAddPlaceClick() {
     setAddPlacePopupOpen(true)
 }
+
+function handleCardClick() {
+    setSelectedCard(true)
+}
+
 function closeAllPopup() {
     setEditAvatarPopupOpen(false)
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
+    setSelectedCard(false)
+
 }
+
   return (
     <div className="page__container">
         <Header />
         <Main 
+        onCardClick={handleCardClick}
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick} />
+        onAddPlace={handleAddPlaceClick}
+         />
         <Footer />
         <PopupWithForm
         name="profile-avatar"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopup}
         title="Обновить аватар"
-        id="form-profile"
         formName="profile-avatar"
         buttonText="Сохранить"
         >
@@ -53,7 +63,6 @@ function closeAllPopup() {
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopup}
         title="Редактировать профиль"
-        id="form-profile"
         formName="form-redaction"
         buttonText="Сохранить"
         >
@@ -68,7 +77,6 @@ function closeAllPopup() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopup}
         title="Новое место"
-        id="form-profile"
         formName="form-add"
         buttonText="Создать"
         >
@@ -77,7 +85,15 @@ function closeAllPopup() {
             <input type="url" name="link" placeholder="Ссылка на картинку" className="popup__input popup__input_type_link" id="link-input" required />
             <span className="link-input-error popup__error"></span>
         </PopupWithForm>
-        <ImagePopup />
+
+        <PopupWithForm
+        name="question"
+        onClose={closeAllPopup}
+        title="Вы уверены?"
+        formName="form-question"
+        buttonText="Да" />
+
+        <ImagePopup isOpen={selectedCard} onClose={closeAllPopup} />
     </div>        
     // <div className="App">
     //   <header className="App-header">
@@ -99,3 +115,4 @@ function closeAllPopup() {
 }
 
 export default App;
+
