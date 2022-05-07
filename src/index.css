@@ -29,6 +29,7 @@
 @import url(../src/blocks/footer/footer.css);
 @import url(../src/blocks/footer/__copyright/footer__copyright.css);
 @import url(../src/blocks/popup/popup.css);
+@import url(../src/blocks/popup/_card-review/popup_card-review.css);
 @import url(../src/blocks/popup/__container/popup__container.css);
 @import url(../src/blocks/popup/__title/popup__title.css);
 @import url(../src/blocks/popup/__input/popup__input.css);
