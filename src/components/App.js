@@ -6,13 +6,11 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
-
-
 function App() {
 const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false)
 const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false)
 const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
-const [selectedCard, setSelectedCard] = useState(false)
+const [selectedCard, setSelectedCard] = useState({})
 
 function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true)
@@ -24,16 +22,19 @@ function handleAddPlaceClick() {
     setAddPlacePopupOpen(true)
 }
 
-function handleCardClick() {
-    setSelectedCard(true)
+function handleCardClick(card) {
+    setSelectedCard({
+        isOpened: true,
+        name: card.name,
+        link: card.link,
+    })
 }
 
 function closeAllPopup() {
     setEditAvatarPopupOpen(false)
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
-    setSelectedCard(false)
-
+    setSelectedCard({...selectedCard, isOpened: false})
 }
 
   return (
@@ -93,24 +94,8 @@ function closeAllPopup() {
         formName="form-question"
         buttonText="Да" />
 
-        <ImagePopup isOpen={selectedCard} onClose={closeAllPopup} />
+        <ImagePopup selectedCard={selectedCard} onClose={closeAllPopup} />
     </div>        
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
   );
 }
 
