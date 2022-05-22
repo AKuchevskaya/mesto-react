@@ -11,6 +11,16 @@ class Api {
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
     }
      
+    editAvatar(avatar) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: "PATCH",   
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar
+            })
+        })
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    }
 
     editProfile(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -68,21 +78,13 @@ class Api {
 
     changeLikeCardStatus(id, isLiked) { 
         return fetch(`${this._baseUrl}/cards/${id}/likes`, { 
-          method: isLiked ? "PUT" : "DELETE", 
-          headers: this._headers,
-        }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      }
-
-    editAvatar(avatar) {
-        return fetch(`${this._baseUrl}/users/me/avatar`, {
-            method: "PATCH",   
+            method: isLiked ? "PUT" : "DELETE", 
             headers: this._headers,
-            body: JSON.stringify({
-                avatar
-            })
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-    }
+      }
+
+    
 
   }
   
