@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api';
+
 
 function App() {
 const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false)
 const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false)
 const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
 const [selectedCard, setSelectedCard] = useState({})
+const [currentUser, setCurrentUser] = useState({}); 
+
+useEffect(() => {
+    
+    api.getProfile()
+    
+    .then((currentUser) => {
+        setCurrentUser(currentUser);
+        
+    })
+    .catch((err) => {console.log(`Ошибка.....: ${err}`)})
+}, [])
 
 function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true)
@@ -29,14 +46,29 @@ function handleCardClick(card) {
     })
 }
 
-function closeAllPopup() {
+function closeAllPopups() {
     setEditAvatarPopupOpen(false)
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
     setSelectedCard({...selectedCard, isOpened: false})
 }
 
+function handleUpdateUser({name, about}) {
+    api.editProfile(name, about)
+    .then((res) => {
+        console.log('res', res)
+        setCurrentUser({
+            name: res.name,
+            about: res.about
+        });
+        closeAllPopups()
+        
+    })
+    .catch((err) => {console.log(`Ошибка.....: ${err}`)})
+}
+
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="page__container">
         <Header />
         <Main 
@@ -46,36 +78,19 @@ function closeAllPopup() {
         onAddPlace={handleAddPlaceClick}
          />
         <Footer />
-        <PopupWithForm
-        name="profile-avatar"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopup}
-        title="Обновить аватар"
-        formName="profile-avatar"
-        buttonText="Сохранить"
-        >
-            <input type="url" name="avatar" placeholder="Ссылка на новый аватар" className="popup__input popup__input_type_avatar" id="url-input" required />
-            <span className="url-input-error popup__error"></span>
-        </PopupWithForm>
+        <EditAvatarPopup 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups} /> 
 
-        <PopupWithForm
-        name="profile-redaction"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopup}
-        title="Редактировать профиль"
-        formName="form-redaction"
-        buttonText="Сохранить"
-        >
-            <input type="text" name="name" placeholder="ФИО" className="popup__input popup__input_type_name" id="name-input" required minLength="2" maxLength="40" />
-            <span className="name-input-error popup__error"></span>
-            <input type="text" name="vocation" placeholder="О себе" className="popup__input popup__input_type_vocation" id="vocation-input" required minLength="2" maxLength="200" />
-            <span className="vocation-input-error popup__error"></span>
-        </PopupWithForm>
+        <EditProfilePopup 
+        isOpen={isEditProfilePopupOpen} 
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser} /> 
 
         <PopupWithForm
         name="profile-add"
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopup}
+        onClose={closeAllPopups}
         title="Новое место"
         formName="form-add"
         buttonText="Создать"
@@ -88,13 +103,14 @@ function closeAllPopup() {
 
         <PopupWithForm
         name="question"
-        onClose={closeAllPopup}
+        onClose={closeAllPopups}
         title="Вы уверены?"
         formName="form-question"
         buttonText="Да" />
 
-        <ImagePopup selectedCard={selectedCard} onClose={closeAllPopup} />
-    </div>        
+        <ImagePopup selectedCard={selectedCard} onClose={closeAllPopups} />
+    </div> 
+    </CurrentUserContext.Provider>       
   );
 }
 

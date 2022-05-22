@@ -66,6 +66,13 @@ class Api {
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
     }
 
+    changeLikeCardStatus(id, isLiked) { 
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, { 
+          method: isLiked ? "PUT" : "DELETE", 
+          headers: this._headers,
+        }).then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      }
+
     editAvatar(avatar) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",   
