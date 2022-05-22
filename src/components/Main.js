@@ -1,50 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Card from './Card';
-import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-    // const [userAvatar, setUserAvatar] = useState('');
-    // const [userName, setUserName] = useState('');
-    // const [userDescription, setUserDescription] = useState('');
-    const [cards,setCards] = useState([])
-    const [removeCard, setRemoveCard] = useState({})
+function Main({ cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete }) {
     const currentUser = useContext(CurrentUserContext);
-
-    useEffect(() => {
-        Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
-        api.getInitialCards(),
-       // api.getProfile()
-        ])
-        .then(([cards]) => {
-            // setUserAvatar(data.avatar);
-            // setUserName(data.name);
-            // setUserDescription(data.about)
-
-            setCards(cards)
-        })
-        .catch((err) => {console.log(`Ошибка.....: ${err}`)})
-    }, [])
-
-    function handleCardLike(card) {
-        // Снова проверяем, есть ли уже лайк на этой карточке
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
-        
-        // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked)
-        .then((newCard) => {
-            setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-            });
-    }
-
-    function handleCardDelete(card) {
-        api.deleteCard(card._id)
-        .then(() => {
-            setCards((state) => state.filter((item) => 
-            item._id !== card._id));
-        })
-    }
 
     return (
         <main className="content">
@@ -71,8 +31,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                         key={card._id} 
                         card={card} 
                         onCardClick={onCardClick}
-                        onCardLike={handleCardLike} 
-                        onCardDelete={handleCardDelete} />
+                        onCardLike={onCardLike} 
+                        onCardDelete={onCardDelete} />
                     ))}
                 </article>
             </section>

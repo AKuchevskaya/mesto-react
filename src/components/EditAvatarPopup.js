@@ -32,7 +32,7 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}){
                 ref={avatarRef} 
                 placeholder="Ссылка на новый аватар" className="popup__input popup__input_type_avatar" id="url-input" required />
                 <span className="url-input-error popup__error"></span>
-            </PopupWithForm>
+        </PopupWithForm>
     )
 }
 

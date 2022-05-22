@@ -52,6 +52,7 @@ class Api {
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
     }
+    
     deleteCard(id) {
         return fetch(`${this._baseUrl}/cards/${id}`, {
             method: "DELETE",       
