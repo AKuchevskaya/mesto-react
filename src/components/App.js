@@ -70,11 +70,7 @@ function handleCardClick(card) {
 function handleUpdateAvatar({avatar}) {
     api.editAvatar(avatar)
     .then((res) => {
-        console.log('res', res)
-
-        setCurrentUser({
-            avatar: res.avatar
-        });
+        setCurrentUser(res);
         closeAllPopups()
     })
     .catch((err) => {console.log(`Ошибка.....: ${err}`)})  
@@ -82,10 +78,7 @@ function handleUpdateAvatar({avatar}) {
 function handleUpdateUser({name, about}) {
     api.editProfile(name, about)
     .then((res) => {
-        setCurrentUser({
-            name: res.name,
-            about: res.about
-        });
+        setCurrentUser(res);
         closeAllPopups()
         
     })
@@ -106,9 +99,6 @@ function closeAllPopups() {
     setAddPlacePopupOpen(false)
     setSelectedCard({...selectedCard, isOpened: false})
 }
-
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
