@@ -29,7 +29,7 @@
 а сам проект доступен в публичном репозитории на GitHub Pages  
 по ссылке: 
  
-[https://akuchevskaya.github.io/mesto-react/index.html].
+[https://akuchevskaya.github.io/mesto-react/].
 
 В проекте также есть специальный файл .nojekyll, который используется для того, чтобы GitHub корректно отображал файлы именованные по БЭМ и содержащие в своем имени нижнее подчеркивание.
 
