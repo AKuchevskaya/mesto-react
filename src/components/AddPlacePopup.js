@@ -1,23 +1,32 @@
-import { useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const cardNameRef = useRef();
-  const cardLinkRef = useRef();
+  const [cardName, setCardName] = useState("");
+  const [cardLink, setCardLink] = useState("");
+  
+  function handleChangeCardName(e) {
+    setCardName(e.target.value)
+  }
 
-  useEffect(() => {
-    cardNameRef.current.value = "";
-    cardLinkRef.current.value = "";
-  }, [isOpen]);
+  function handleChangeCardLink(e) {
+    setCardLink(e.target.value)
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onAddPlace({
-      name: cardNameRef.current.value,
-      link: cardLinkRef.current.value,
+      name: cardName,
+      link: cardLink
     });
   }
+
+  useEffect(() => {
+    setCardName("");
+    setCardLink("");
+  }, [isOpen])
+
   return (
     <PopupWithForm
       name="profile-add"
@@ -29,9 +38,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       buttonText="Создать"
     >
       <input
+        onChange={handleChangeCardName}
         type="text"
         name="text"
-        ref={cardNameRef}
+        value={cardName || ""}
         placeholder="Название"
         className="popup__input popup__input_type_title"
         id="title-input"
@@ -41,9 +51,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       />
       <span className="title-input-error popup__error"></span>
       <input
+        onChange={handleChangeCardLink}
         type="url"
         name="link"
-        ref={cardLinkRef}
+        value={cardLink || ""}
         placeholder="Ссылка на картинку"
         className="popup__input popup__input_type_link"
         id="link-input"
