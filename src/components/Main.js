@@ -10,6 +10,7 @@ function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  onCardButtonDeleteClick
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -56,6 +57,7 @@ function Main({
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
+              onCardButtonDeleteClick={onCardButtonDeleteClick}
             />
           ))}
         </article>
